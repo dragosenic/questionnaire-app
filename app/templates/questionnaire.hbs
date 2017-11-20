@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="wrapper transition" style={{questionStylePosition}}>
+    <div class="questionnaire defaultPadding" >
+      <div class="toparea">
+        <h1>Start</h1>
+      </div>
+      {{#each model.questionnaire.questions as |question questionIndex|}}
+      <div class="question {{if (equal (increase questionIndex 1) currentQuestion) "opaque" "transparent"}}" >
+        <h2>{{increase questionIndex 1}}. {{question.headline}}</h2>
+
+        {{#if (equal question.question_type "multiple-choice")}}
+          {{#each question.choices as |choice choiceIndex|}}
+          <div class="choiceItem {{if choice.selected "selected"}}"
+              {{action "chooseTheAnswer" questionIndex choiceIndex currentQuestion}}>
+              <span>{{convert-to-alpha choiceIndex}} - {{choice.label}}</span>
+          </div>
+          {{/each}}
+        {{else}}
+          {{#if (equal question.multiline "true")}}
+            <textarea rows="5" class="inputText multiline"></textarea>
+          {{else}}
+            <input type="text" class="inputText singleline" />
+          {{/if}}
+        {{/if}}
+      </div>
+      {{/each}}
+      <div class="bottomarea">
+        <div {{action "navigateTo" "thankyou"}}
+             class="button normal">
+          <span>Bestätigen</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fixedFooter">
+  <div class="defaultPadding">
+    <div class="progressIndicator">
+      <p>{{questionsAnswered}} / {{questionsCount}}</p>
+      <div class="wholebar">
+        <div class="percentagebar" style={{progressBarStylePosition}}></div>
+      </div>
+    </div>
+    <div class="button navigation down"
+         {{action "showNext"}} >
+      <img src="/assets/images/arrow-down.png" />
+    </div>
+    <div class="button navigation up"
+         {{action "showPrevious"}} >
+      <img src="/assets/images/arrow-up.png" />
+    </div>
+  </div>
+</div>

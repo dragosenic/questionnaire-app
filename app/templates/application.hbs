@@ -1,5 +1,9 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-{{welcome-page}}
-{{!-- Feel free to remove this! --}}
-
+<div class="header" >
+  <div class="title">
+    <img {{action "navigateTo" "home"}}
+         alt="questionnaire"
+         src="/assets/images/questionnaire-icon.svg" />
+    <h1>Questionnaire</h1>
+  </div>
+</div>
 {{outlet}}
